@@ -164,5 +164,19 @@
                 </plugins>
             </build>
         </profile>
+        <profile>
+            <id>quarkus-12</id>
+            <properties>
+                <quarkus-plugin.version>1.12.2.Final</quarkus-plugin.version>
+                <quarkus.platform.version>1.12.2.Final</quarkus.platform.version>
+            </properties>
+        </profile>
+        <profile>
+            <id>quarkus-999</id>
+            <properties>
+                <quarkus-plugin.version>999-SNAPSHOT</quarkus-plugin.version>
+                <quarkus.platform.version>999-SNAPSHOT</quarkus.platform.version>
+            </properties>
+        </profile>
     </profiles>
 </project>
