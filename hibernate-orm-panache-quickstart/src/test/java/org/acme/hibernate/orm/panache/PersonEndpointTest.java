@@ -93,4 +93,39 @@ public class PersonEndpointTest {
         List<Person> peopleUpdated = Person.find("name = 'Alice'").list();
         assertNull(peopleUpdated.get(0).country);
     }
+
+    @Test
+    public void testInsertWithReferencedCollection() {
+        final Person bob = new Person();
+        bob.name = "Bob";
+        bob.birth = LocalDate.of(1920, Month.FEBRUARY, 1);
+        final Fruit cherry = new Fruit();
+        cherry.id = 1L;
+        bob.fruits.add(cherry);
+        final Fruit apple = new Fruit();
+        apple.id = 2L;
+        bob.fruits.add(apple);
+
+        bob.id = Long.valueOf(
+                given()
+                    .contentType(ContentType.JSON)
+                    .accept(ContentType.JSON)
+                    .body(bob)
+                    .when()
+                    .post("/person")
+                    .then()
+                    .statusCode(201)
+                    .extract()
+                    .path("id")
+                    .toString());
+
+        given()
+                .accept("application/hal+json")
+                .pathParam("id", bob.id)
+                .when()
+                .get("/person/{id}")
+                .then()
+                .statusCode(200)
+                .body("fruits.size()", is(2));
+    }
 }

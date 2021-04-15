@@ -179,5 +179,12 @@
                 </pluginManagement>
             </build>
         </profile>
+        <profile>
+            <id>quarkus-12</id>
+            <properties>
+                <quarkus.platform.version>1.12.2.Final</quarkus.platform.version>
+                <quarkus-plugin.version>1.12.2.Final</quarkus-plugin.version>
+            </properties>
+        </profile>
     </profiles>
 </project>
